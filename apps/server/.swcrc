@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/swcrc",
+  "sourceMaps": true,
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "decorators": true,
+      "dynamicImport": true,
+      "tsx": true
+    },
+    "transform": {
+      "legacyDecorator": true,
+      "decoratorMetadata": true,
+      "react": {
+        "pragma": "h",
+        "pragmaFrag": "Fragment",
+        "importSource": "preact",
+        "runtime": "automatic"
+      }
+    },
+    "baseUrl": "./"
+  },
+  "minify": false
+}
