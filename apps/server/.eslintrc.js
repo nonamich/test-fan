@@ -1,7 +1,7 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   extends: [
-    "@test-fan/eslint-config/node.js"
+    "@test-fans/eslint-config/node.js"
   ],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',

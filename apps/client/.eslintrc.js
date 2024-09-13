@@ -5,7 +5,7 @@ module.exports = {
     es6: true,
   },
   extends: [
-    "@test-fan/eslint-config/base.js",
+    "@test-fans/eslint-config/base.js",
     "react-app"
   ],
 };
