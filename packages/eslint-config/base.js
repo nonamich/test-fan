@@ -1,0 +1,7 @@
+/** @type {import("eslint").Linter.Config} */
+module.exports = {
+  extends: [
+    'plugin:prettier/recommended',
+  ],
+  ignorePatterns: ['.eslintrc.js'],
+};

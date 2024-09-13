@@ -1,4 +1,12 @@
 {
   "name": "test-fan",
-  "version": "1.0.0"
+  "version": "0.0.1",
+  "packageManager": "npm@10.2.3",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "turbo": "^2.1.2"
+  }
 }
