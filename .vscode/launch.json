@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "server",
+      "type": "node",
+      "request": "attach",
+      "address": "localhost",
+      "localRoot": "${workspaceFolder}",
+      "port": 9229,
+      "restart": true
+    },
+  ]
+}
