@@ -6,8 +6,8 @@
     "node": ">=20.10.0"
   },
   "scripts": {
+    "start": "craco start",
     "dev": "craco start",
-    "build": "craco build",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint src --fix",
     "generate:api": "npx @hey-api/openapi-ts"
@@ -27,6 +27,7 @@
     "react-scripts": "5.0.1"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@craco/craco": "^7.1.0",
     "@hey-api/openapi-ts": "^0.53.0",
     "@test-fans/eslint-config": "*",
