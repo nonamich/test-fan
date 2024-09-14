@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ClassSerializerInterceptor,
   INestApplication,
   ValidationPipe,
@@ -15,6 +16,8 @@ bootstrap();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get(ConfigService);
+
+  app.enableCors();
 
   app.setGlobalPrefix('/api/v1');
 
@@ -33,7 +36,22 @@ function useFilters(app: INestApplication) {
 }
 
 function useValidators(app: INestApplication) {
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      exceptionFactory: (errors) => {
+        const result = {
+          fields: Object.fromEntries(
+            errors.map((error) => {
+              return [error.property, Object.values(error.constraints!).at(0)];
+            }),
+          ),
+        };
+
+        return new BadRequestException(result);
+      },
+    }),
+  );
 }
 
 function useInterceptors(app: INestApplication) {

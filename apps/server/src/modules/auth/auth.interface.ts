@@ -1,4 +1,5 @@
 export interface IAuthorizedUser {
+  id: number;
   name: string;
   email: string;
   phone: string;

@@ -1,13 +1,11 @@
-import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
-@Injectable()
-export class PasswordService {
-  comparePassword(password: string, encryptedPassword: string) {
-    return bcrypt.compare(password, encryptedPassword);
+export abstract class PasswordService {
+  static comparePassword(password: string, encryptedPassword: string) {
+    return bcrypt.compareSync(password, encryptedPassword);
   }
 
-  hashPassword(password: string) {
-    return bcrypt.hash(password, 10);
+  static hashPassword(password: string) {
+    return bcrypt.hashSync(password, 10);
   }
 }

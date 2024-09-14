@@ -8,7 +8,9 @@ module.exports = {
     'perfectionist',
   ],
   rules: {
-    'perfectionist/sort-imports': 'error',
+    'perfectionist/sort-imports': ['error', {
+      internalPattern: ['~/**', '@/**'],
+    }],
     '@typescript-eslint/no-unused-vars': ['error', {
       argsIgnorePattern: '^_',
       varsIgnorePattern: '^_'

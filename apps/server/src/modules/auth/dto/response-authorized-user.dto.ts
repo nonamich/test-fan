@@ -4,5 +4,5 @@ import { BaseAuthDTO } from '.';
 import { IAuthorizedUser } from '../auth.interface';
 
 export class ResponseAuthorizedUserDTO
-  extends PickType(BaseAuthDTO, ['name', 'email', 'phone'])
+  extends PickType(BaseAuthDTO, ['id', 'name', 'email', 'phone'])
   implements IAuthorizedUser {}

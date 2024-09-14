@@ -28,12 +28,12 @@ export class UsersService {
     return await this.findOne({ id });
   }
 
-  async findAll(page: number = 1) {
+  async findAll(page: number = 1, limit = USERS_PER_PAGE) {
     page = Math.max(1, page);
 
-    const offset = USERS_PER_PAGE * page - USERS_PER_PAGE;
+    const offset = limit * page - limit;
 
-    return await this.model.findAll({ limit: USERS_PER_PAGE, offset });
+    return await this.model.findAll({ limit: limit, offset });
   }
 
   async findOne(where: WhereOptions<IUser> = {}) {
@@ -51,5 +51,9 @@ export class UsersService {
 
       throw error;
     }
+  }
+
+  async count() {
+    return this.model.count();
   }
 }

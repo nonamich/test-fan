@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { IAuthorizedUser } from './auth.interface';
@@ -24,8 +24,8 @@ export class AuthController {
   }
 
   @ApiOkResponse({ type: ResponseLoggedInDTO })
-  @Get('login')
-  async login(@Query() dto: RequestLoginDTO): Promise<ResponseLoggedInDTO> {
+  @Post('login')
+  async login(@Body() dto: RequestLoginDTO): Promise<ResponseLoggedInDTO> {
     return await this.authService.login(dto);
   }
 

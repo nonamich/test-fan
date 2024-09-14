@@ -6,6 +6,9 @@
     "apps/*",
     "packages/*"
   ],
+  "scripts": {
+    "dev": "turbo run dev --parallel"
+  },
   "devDependencies": {
     "turbo": "^2.1.2"
   }

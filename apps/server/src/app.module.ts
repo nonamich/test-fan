@@ -1,6 +1,7 @@
 import { Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { SeederModule } from 'nestjs-sequelize-seeder';
 
 import { AppLoggerMiddleware } from './app.http-logger';
 import { AuthModule } from './modules/auth/auth.module';
@@ -30,6 +31,9 @@ import { UsersModule } from './modules/users/users.module';
           },
         };
       },
+    }),
+    SeederModule.forRoot({
+      runOnlyIfTableIsEmpty: true,
     }),
     UsersModule,
     AuthModule,

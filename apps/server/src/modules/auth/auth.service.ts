@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { UsersService } from '../users/users.service';
+import { IAuthorizedUser } from './auth.interface';
 import { RequestLoginDTO, RequestSignupDTO } from './dto';
 import { PasswordService } from './password.service';
 
@@ -10,33 +11,22 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
-    private password: PasswordService,
   ) {}
 
   async signup(dto: RequestSignupDTO) {
-    const hashedPassword = await this.password.hashPassword(dto.password);
+    const hashedPassword = PasswordService.hashPassword(dto.password);
     const user = await this.usersService.create({
       ...dto,
       password: hashedPassword,
     });
 
-    return {
-      user: {
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-      },
-      accessToken: this.getAccessToken(user.id),
-    };
+    return await this.login({ ...user, password: dto.password });
   }
 
   async login(dto: RequestLoginDTO) {
-    const {
-      id: _id,
-      password: encryptedPassword,
-      ...user
-    } = await this.usersService.findByEmail(dto.email);
-    const isPasswordValid = await this.password.comparePassword(
+    const { password: encryptedPassword, ...user } =
+      await this.usersService.findByEmail(dto.email);
+    const isPasswordValid = PasswordService.comparePassword(
       dto.password,
       encryptedPassword,
     );
@@ -47,15 +37,16 @@ export class AuthService {
 
     return {
       user: {
+        id: user.id,
         name: user.name,
         phone: user.phone,
         email: user.email,
       },
-      accessToken: this.getAccessToken(_id),
+      accessToken: this.getAccessToken(user),
     };
   }
 
-  getAccessToken(id: number) {
+  getAccessToken({ id }: IAuthorizedUser) {
     const jwtPayload = {
       id,
     };

@@ -15,17 +15,17 @@ export class JwtHeaderStrategy extends PassportStrategy(Strategy, 'jwt') {
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: configService.get<string>('JWT_SECRET'),
+      secretOrKey: configService.getOrThrow('JWT_SECRET'),
     });
   }
 
   async validate(payload: IJwtPayload): Promise<IAuthorizedUser> {
     try {
-      const { email, name, phone } = await this.usersService.findById(
+      const { id, email, name, phone } = await this.usersService.findById(
         payload.id,
       );
 
-      return { email, name, phone };
+      return { id, email, name, phone };
     } catch {
       throw new UnauthorizedException();
     }
